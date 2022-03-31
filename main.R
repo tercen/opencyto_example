@@ -1,24 +1,14 @@
-library(tercenApi)
 library(tercen)
 library(dplyr)
-library(progressr)
-library("future.apply")
+library(openCyto)
 
-# options("tercen.serviceUri"="http://172.28.0.1:5400/api/v1/")
-# # http://127.0.0.1:5400/test-team/w/073510448c675ef923a0b55ca20ba1c0/ds/9fb0dd32-20d1-4daa-8701-e5766bfb425c
-# options("tercen.workflowId"= "073510448c675ef923a0b55ca20ba1c0")
-# options("tercen.stepId"= "9fb0dd32-20d1-4daa-8701-e5766bfb425c")
+options("tercen.workflowId" = "f15e43167d5523d4b1b1f2cdbf002ca1")
+options("tercen.stepId"     = "83ce5d1b-1be4-4991-b458-0f94f88d3b62")
 
-ctx = tercenCtx()
+getOption("tercen.workflowId")
+getOption("tercen.stepId")
 
-nCpus = availableCores() 
-nCpusRequested = 4
-ctx$requestResources(nCpus=nCpusRequested)
-nCpusReceived = availableCores() 
-
-msg = paste0("nCpus=" , nCpus , " nCpusRequested=", nCpusRequested, " nCpusReceived=", nCpusReceived)
-
-ctx$log(msg)
+ctx <- tercenCtx()
 
 ctx  %>%
   select(.y, .ci, .ri) %>%
