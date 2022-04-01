@@ -33,8 +33,9 @@ gs_add_gating_method(gs, alias = "nonDebris",
 gs_add_gating_method(gs, alias = "singlets",
                      pop = "+",
                      parent = "nonDebris",
-                     dims = "FS-A,SS-A",
+                     dims = "FSC-A,FSC-H",
                      gating_method = "singletGate")
+
 if (is.null(viable)){
   data_get <- gh_pop_get_data(gs,"singlets")
 } else{
