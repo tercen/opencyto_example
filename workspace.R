@@ -14,6 +14,9 @@ getOption("tercen.stepId")
 
 ctx <- tercenCtx()
 
+viable <- NULL
+if(!is.null(ctx$op.value('viable')) && !ctx$op.value('viable') == "NULL") viable <- ctx$op.value('viable')
+
 data <- ctx %>% 
   as.matrix() %>%
   t()
@@ -30,7 +33,7 @@ gs <- GatingSet(flow.set)
 gs_add_gating_method(gs, alias = "nonDebris",
                      pop = "+",
                      parent = "root",
-                     dims = "FS-A",
+                     dims = "FSC-A",
                      gating_method = "gate_mindensity")
 
 gs_add_gating_method(gs, alias = "singlets",
@@ -38,8 +41,17 @@ gs_add_gating_method(gs, alias = "singlets",
                      parent = "nonDebris",
                      dims = "FS-A,SS-A",
                      gating_method = "singletGate")
-
-data_get <- gh_pop_get_data(gs,"singlets")
+if (is.null(viable)){
+  data_get <- gh_pop_get_data(gs,"singlets")
+} else{
+  gs_add_gating_method(gs, alias = viable,
+                       pop = "-",
+                       parent = "singlets",
+                       dims = viable,
+                       gating_method = "gate_mindensity")
+  
+  data_get <- gh_pop_get_data(gs,viable)
+}
 
 filter_data <- data[,".ci"]%in% exprs(data_get)[,".ci"]
 

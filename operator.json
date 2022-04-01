@@ -1,9 +1,9 @@
 {
-"name": "openctyo operator",
+"name": "opencyto operator",
 "description": "opencyto operator",
 "tags": ["flow cytometry", "clustering"],
 "authors": ["tercen"],
-"container": "tercen/opencyto_operator:0.0.3",
+"container": "tercen/opencyto_operator:latest",
 "urls": ["https://github.com/tercen/opencyto_operator"],
 "properties": [ {
     "kind": "StringProperty",
