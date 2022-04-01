@@ -1,18 +1,44 @@
 library(tercen)
 library(dplyr)
 library(openCyto)
-
-options("tercen.workflowId" = "f15e43167d5523d4b1b1f2cdbf002ca1")
-options("tercen.stepId"     = "83ce5d1b-1be4-4991-b458-0f94f88d3b62")
-
-getOption("tercen.workflowId")
-getOption("tercen.stepId")
+library(data.table)
+library(flowWorkspace)
+library(ncdfFlow)
+library(ggcyto)
 
 ctx <- tercenCtx()
 
-ctx  %>%
-  select(.y, .ci, .ri) %>%
-  group_by(.ci, .ri) %>%
-  summarise(mean = mean(.y)) %>%
+data <- ctx %>% 
+  as.matrix() %>%
+  t()
+
+colnames(data) <- ctx$rselect()[[1]]
+
+data <- cbind(data,.ci =seq_len(nrow(data)) - 1)
+
+flow.dat <- flowCore::flowFrame(as.matrix(data))
+flow.set <- flowCore::flowSet(flow.dat)
+
+gs <- GatingSet(flow.set)
+
+gs_add_gating_method(gs, alias = "nonDebris",
+                     pop = "+",
+                     parent = "root",
+                     dims = "FS-A",
+                     gating_method = "gate_mindensity")
+
+gs_add_gating_method(gs, alias = "singlets",
+                     pop = "+",
+                     parent = "nonDebris",
+                     dims = "FS-A,SS-A",
+                     gating_method = "singletGate")
+
+data_get <- gh_pop_get_data(gs,"singlets")
+
+filter_data <- data[,".ci"]%in% exprs(data_get)[,".ci"]
+
+df <- data.frame(Openflag= ifelse(filter_data,"pass","fail"),.ci=  data[,".ci"])
+
+df %>%
   ctx$addNamespace() %>%
   ctx$save()

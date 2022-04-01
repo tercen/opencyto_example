@@ -4,24 +4,7 @@ library(openCyto)
 library(data.table)
 library(flowWorkspace)
 library(ncdfFlow)
-
-flowset<-data_get
-
-flowset_to_data = function(flowset) {
-  data_fcs = exprs(flowset)
- 
-  names_parameters =  parameters(data_fcs)
-  data = as.data.frame(exprs(data_fcs))
-  col_names = colnames(data)
- 
-  data %>%
-    mutate_if(is.logical, as.character) %>%
-    mutate_if(is.integer, as.double) %>%
-    mutate(.ci = as.integer(rep_len(0, nrow(.)))) %>%
-    mutate(filename = rep_len(basename(filename), nrow(.)))
-}
-
-
+library(ggcyto)
 
 options("tercen.workflowId" = "0c9301e340e4822bf28879ed28006d54")
 options("tercen.stepId"     = "c4f45c00-942a-475c-9bd5-2548e7f299a9")
@@ -37,8 +20,10 @@ data <- ctx %>%
 
 colnames(data) <- ctx$rselect()[[1]]
 
+data <- cbind(data,.ci =seq_len(nrow(data)) - 1)
+
 flow.dat <- flowCore::flowFrame(as.matrix(data))
-flow.set<-flowCore::flowSet(flow.dat)
+flow.set <- flowCore::flowSet(flow.dat)
 
 gs <- GatingSet(flow.set)
 
@@ -54,9 +39,12 @@ gs_add_gating_method(gs, alias = "singlets",
                      dims = "FS-A,SS-A",
                      gating_method = "singletGate")
 
-data_get<-gh_pop_get_data(gs,"singlets")
+data_get <- gh_pop_get_data(gs,"singlets")
 
-data_get  %>%
-  bind_rows() %>%
+filter_data <- data[,".ci"]%in% exprs(data_get)[,".ci"]
+
+df <- data.frame(Openflag= ifelse(filter_data,"pass","fail"),.ci=  data[,".ci"])
+ 
+df %>%
   ctx$addNamespace() %>%
   ctx$save()
