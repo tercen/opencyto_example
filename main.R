@@ -30,18 +30,30 @@ gs_add_gating_method(gs, alias = "nonDebris",
                      dims = "FSC-A",
                      gating_method = "gate_mindensity")
 
-gs_add_gating_method(gs, alias = "singlets",
+gs_add_gating_method(gs, alias = "nonDebris2",
                      pop = "+",
                      parent = "nonDebris",
+                     dims = "SSC-A",
+                     gating_method = "gate_mindensity")
+
+gs_add_gating_method(gs, alias = "singlets",
+                     pop = "+",
+                     parent = "nonDebris2",
                      dims = "FSC-A,FSC-H",
                      gating_method = "singletGate")
 
+gs_add_gating_method(gs, alias = "singlets2",
+                     pop = "+",
+                     parent = "singlets",
+                     dims = "SSC-A,SSC-H",
+                     gating_method = "singletGate")
+
 if (is.null(viable)){
-  data_get <- gh_pop_get_data(gs,"singlets")
+  data_get <- gh_pop_get_data(gs,"singlets2")
 } else{
   gs_add_gating_method(gs, alias = viable,
                        pop = "-",
-                       parent = "singlets",
+                       parent = "singlets2",
                        dims = viable,
                        gating_method = "gate_mindensity")
   
