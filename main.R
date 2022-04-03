@@ -24,23 +24,23 @@ flow.set <- flowCore::flowSet(flow.dat)
 
 gs <- GatingSet(flow.set)
 
-#gs_add_gating_method(gs, alias = "nonDebris",
-                     # pop = "+",
-                     # parent = "root",
-                     # dims = "FSC-A",
-                     # gating_method = "gate_mindensity",
-                     # min = 0, max = 1e3)
-
 gs_add_gating_method(gs, alias = "nonDebris",
                       pop = "+",
                       parent = "root",
+                      dims = "FSC-A",
+                      gating_method = "gate_mindensity",
+                      gating_args = "min = 0, max = 1e4")
+
+gs_add_gating_method(gs, alias = "nonDebris2",
+                      pop = "+",
+                      parent = "nonDebris",
                       dims = "SSC-A",
                       gating_method = "gate_mindensity",
-                      min = 0, max = 1e3)
+                      gating_args = "min = 0, max = 1e4")
 
 gs_add_gating_method(gs, alias = "singlets",
                      pop = "+",
-                     parent = "nonDebris",
+                     parent = "nonDebris2",
                      dims = "FSC-A,FSC-H",
                      gating_method = "singletGate")
 
