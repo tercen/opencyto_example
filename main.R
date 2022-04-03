@@ -29,14 +29,14 @@ gs_add_gating_method(gs, alias = "nonDebris",
                       parent = "root",
                       dims = "FSC-A",
                       gating_method = "gate_mindensity",
-                      gating_args = "min = 0, max = 1e4")
+                      gating_args = "gate_range=c(0,30000)")
 
 gs_add_gating_method(gs, alias = "nonDebris2",
                       pop = "+",
                       parent = "nonDebris",
                       dims = "SSC-A",
                       gating_method = "gate_mindensity",
-                      gating_args = "min = 0, max = 1e4")
+                      gating_args = "gate_range=c(0,30000)")
 
 gs_add_gating_method(gs, alias = "singlets",
                      pop = "+",
