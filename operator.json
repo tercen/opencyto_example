@@ -13,33 +13,33 @@
   },
   {"kind": "StringProperty",
     "name": "FowardScatter",
-    "defaultValue": "",
-    "description": "add channel to do mindensity (selection of viable cell), NULL to ignore"
+    "defaultValue": "FSC-A",
+    "description": "add Foward Scatter channel to do mindensity that selection of positive cell (default FSC-A)"
   },
   {"kind": "StringProperty",
     "name": "SideScatter",
-    "defaultValue": "",
-    "description": "add channel to do mindensity (selection of viable cell), NULL to ignore"
+    "defaultValue": "SSC-A",
+    "description": "add Side Scatter channel to do mindensity that selection of positive cell (default SSC-A)"
   },
   {"kind": "StringProperty",
     "name": "FowardScatter biplot",
-    "defaultValue": "",
-    "description": "add channel to do mindensity (selection of viable cell), NULL to ignore"
+    "defaultValue": "FSC-A,FSC-H",
+    "description": "add combination of Foward channels to do a singletGate (default FSC-A,FSC-H)"
   },
   {"kind": "StringProperty",
     "name": "SideScatter biplot",
     "defaultValue": "",
-    "description": "add channel to do mindensity (selection of viable cell), NULL to ignore"
+    "description": "add combination of Side scatter channels to do a singletGate (default SSC-A,SSC-H)"
   },
   {"kind": "StringProperty",
-    "name": "first gate range",
+    "name": "FowardScatter gate range",
     "defaultValue": "",
-    "description": "add channel to do mindensity (selection of viable cell), NULL to ignore"
+    "description": "add mindensity gate arguments (set range), leave empty to ignore"
   },
   {"kind": "StringProperty",
-    "name": "second gate range",
+    "name": "SideScatter gate range",
     "defaultValue": "",
-    "description": "add channel to do mindensity (selection of viable cell), NULL to ignore"
+    "description": "add mindensity gate arguments (set range), leave empty to ignore"
   }
   ]
 }

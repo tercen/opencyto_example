@@ -26,10 +26,10 @@ if(!ctx$op.value('SideScatter biplot') == "") Fourth_param <- ctx$op.value('Side
 
 #RANGE
 First_range <- ""
-if(ctx$op.value('first gate range') == First_range) First_range <- paste("gate_range=c(",ctx$op.value('first gate range'),")",sep="")
+if(ctx$op.value('FowardScatter gate range') == First_range) First_range <- paste("gate_range=c(",ctx$op.value('FowardScatter gate range'),")",sep="")
 
 Second_range <- ""
-if(ctx$op.value('second gate range') == Second_range) Second_range <- paste("gate_range=c(",ctx$op.value('second gate range'),")",sep="")
+if(ctx$op.value('SideScatter gate range') == Second_range) Second_range <- paste("gate_range=c(",ctx$op.value('SideScatter gate range'),")",sep="")
 
 
 data <- ctx %>% 
