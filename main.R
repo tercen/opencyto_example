@@ -11,6 +11,27 @@ ctx <- tercenCtx()
 viable <- NULL
 if(!is.null(ctx$op.value('viable')) && !ctx$op.value('viable') == "NULL") viable <- ctx$op.value('viable')
 
+#PARAMETERS
+First_param <- "FSC-A"
+if(!ctx$op.value('FowardScatter') == "") First_param <- ctx$op.value('FowardScatter')
+
+Second_param <- "SSC-A"
+if( !ctx$op.value('SideScatter') == "") Second_param <- ctx$op.value('SideScatter')
+
+Third_param <- "FSC-A,FSC-H"
+if(!ctx$op.value('FowardScatter biplot') == "") Third_param <- ctx$op.value('FowardScatter biplot')
+
+Fourth_param <- "SSC-A,SSC-H"
+if(!ctx$op.value('SideScatter biplot') == "") Fourth_param <- ctx$op.value('SideScatter biplot')
+
+#RANGE
+First_range <- ""
+if(ctx$op.value('first gate range') == First_range) First_range <- paste("gate_range=c(",ctx$op.value('first gate range'),")",sep="")
+
+Second_range <- ""
+if(ctx$op.value('second gate range') == Second_range) Second_range <- paste("gate_range=c(",ctx$op.value('second gate range'),")",sep="")
+
+
 data <- ctx %>% 
   as.matrix() %>%
   t()
@@ -27,27 +48,27 @@ gs <- GatingSet(flow.set)
 gs_add_gating_method(gs, alias = "nonDebris",
                       pop = "+",
                       parent = "root",
-                      dims = "FSC-A",
+                      dims = First_param,
                       gating_method = "gate_mindensity",
-                      gating_args = "gate_range=c(0,30000)")
+                      gating_args = First_range)
 
 gs_add_gating_method(gs, alias = "nonDebris2",
                       pop = "+",
                       parent = "nonDebris",
-                      dims = "SSC-A",
+                      dims = Second_param,
                       gating_method = "gate_mindensity",
-                      gating_args = "gate_range=c(0,30000)")
+                      gating_args = Second_range)
 
 gs_add_gating_method(gs, alias = "singlets",
                      pop = "+",
                      parent = "nonDebris2",
-                     dims = "FSC-A,FSC-H",
+                     dims = Third_param,
                      gating_method = "singletGate")
 
 gs_add_gating_method(gs, alias = "singlets2",
                      pop = "+",
                      parent = "singlets",
-                     dims = "SSC-A,SSC-H",
+                     dims = Fourth_param,
                      gating_method = "singletGate")
 
 if (is.null(viable)){
@@ -57,7 +78,7 @@ if (is.null(viable)){
                        pop = "-",
                        parent = "singlets2",
                        dims = viable,
-                       gating_method = "gate_mindensity")
+                       gating_method = "tailgate")
   
   data_get <- gh_pop_get_data(gs,viable)
 }

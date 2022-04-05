@@ -5,10 +5,40 @@
 "authors": ["tercen"],
 "container": "tercen/opencyto_operator:latest",
 "urls": ["https://github.com/tercen/opencyto_operator"],
-"properties": [ {
-    "kind": "StringProperty",
+"properties": [ 
+  { "kind": "StringProperty",
     "name": "viable",
     "defaultValue": "NULL",
+    "description": "add channel to do mindensity (selection of viable cell), NULL to ignore"
+  },
+  {"kind": "StringProperty",
+    "name": "FowardScatter",
+    "defaultValue": "",
+    "description": "add channel to do mindensity (selection of viable cell), NULL to ignore"
+  },
+  {"kind": "StringProperty",
+    "name": "SideScatter",
+    "defaultValue": "",
+    "description": "add channel to do mindensity (selection of viable cell), NULL to ignore"
+  },
+  {"kind": "StringProperty",
+    "name": "FowardScatter biplot",
+    "defaultValue": "",
+    "description": "add channel to do mindensity (selection of viable cell), NULL to ignore"
+  },
+  {"kind": "StringProperty",
+    "name": "SideScatter biplot",
+    "defaultValue": "",
+    "description": "add channel to do mindensity (selection of viable cell), NULL to ignore"
+  },
+  {"kind": "StringProperty",
+    "name": "first gate range",
+    "defaultValue": "",
+    "description": "add channel to do mindensity (selection of viable cell), NULL to ignore"
+  },
+  {"kind": "StringProperty",
+    "name": "second gate range",
+    "defaultValue": "",
     "description": "add channel to do mindensity (selection of viable cell), NULL to ignore"
   }
   ]
