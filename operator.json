@@ -3,7 +3,7 @@
 "description": "opencyto operator",
 "tags": ["flow cytometry", "clustering"],
 "authors": ["tercen"],
-"container": "tercen/opencyto_operator:0.1.1",
+"container": "tercen/opencyto_operator:latest",
 "urls": ["https://github.com/tercen/opencyto_operator"],
 "properties": [ 
   { "kind": "StringProperty",
@@ -18,8 +18,8 @@
   },
   {"kind": "StringProperty",
     "name": "SideScatter",
-    "defaultValue": "SSC-A",
-    "description": "add Side Scatter channel to do mindensity that selection of positive cell (default SSC-A)"
+    "defaultValue": "",
+    "description": "add Side Scatter channel to do mindensity that selection of positive cell (ignored if empty)"
   },
   {"kind": "StringProperty",
     "name": "FowardScatter biplot",
@@ -29,7 +29,7 @@
   {"kind": "StringProperty",
     "name": "SideScatter biplot",
     "defaultValue": "",
-    "description": "add combination of Side scatter channels to do a singletGate (default SSC-A,SSC-H)"
+    "description": "add combination of Side scatter channels to do a singletGate (ignored if empty)"
   },
   {"kind": "StringProperty",
     "name": "FowardScatter gate range",

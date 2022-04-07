@@ -15,13 +15,15 @@ if(!is.null(ctx$op.value('viable')) && !ctx$op.value('viable') == "NULL") viable
 First_param <- "FSC-A"
 if(!ctx$op.value('FowardScatter') == "") First_param <- ctx$op.value('FowardScatter')
 
-Second_param <- "SSC-A"
+#Second_param <- "SSC-A"
+Second_param <- ""
 if( !ctx$op.value('SideScatter') == "") Second_param <- ctx$op.value('SideScatter')
 
 Third_param <- "FSC-A,FSC-H"
 if(!ctx$op.value('FowardScatter biplot') == "") Third_param <- ctx$op.value('FowardScatter biplot')
 
-Fourth_param <- "SSC-A,SSC-H"
+#Fourth_param <- "SSC-A,SSC-H"
+Fourth_param <- ""
 if(!ctx$op.value('SideScatter biplot') == "") Fourth_param <- ctx$op.value('SideScatter biplot')
 
 #RANGE
@@ -45,31 +47,52 @@ flow.set <- flowCore::flowSet(flow.dat)
 
 gs <- GatingSet(flow.set)
 
-gs_add_gating_method(gs, alias = "nonDebris",
+if (Second_param ==""){
+gs_add_gating_method(gs, alias = "nonDebris2",
                       pop = "+",
                       parent = "root",
                       dims = First_param,
                       gating_method = "gate_mindensity",
                       gating_args = First_range)
 
-gs_add_gating_method(gs, alias = "nonDebris2",
-                      pop = "+",
-                      parent = "nonDebris",
-                      dims = Second_param,
-                      gating_method = "gate_mindensity",
-                      gating_args = Second_range)
+} else {
+  gs_add_gating_method(gs, alias = "nonDebris",
+                       pop = "+",
+                       parent = "root",
+                       dims = First_param,
+                       gating_method = "gate_mindensity",
+                       gating_args = First_range)
+  
+  gs_add_gating_method(gs, alias = "nonDebris2",
+                       pop = "+",
+                       parent = "nonDebris",
+                       dims = Second_param,
+                       gating_method = "gate_mindensity",
+                       gating_args = Second_range)
+}
 
-gs_add_gating_method(gs, alias = "singlets",
+if (Fourth_param ==""){
+  gs_add_gating_method(gs, alias = "singlets2",
+                       pop = "+",
+                       parent = "nonDebris2",
+                       dims = Third_param,
+                       gating_method = "singletGate")
+} else {
+
+  gs_add_gating_method(gs, alias = "singlets",
                      pop = "+",
                      parent = "nonDebris2",
                      dims = Third_param,
                      gating_method = "singletGate")
 
-gs_add_gating_method(gs, alias = "singlets2",
-                     pop = "+",
-                     parent = "singlets",
-                     dims = Fourth_param,
-                     gating_method = "singletGate")
+  gs_add_gating_method(gs, alias = "singlets2",
+                       pop = "+",
+                       parent = "singlets",
+                       dims = Fourth_param,
+                       gating_method = "singletGate")
+  
+}
+
 
 if (is.null(viable)){
   data_get <- gh_pop_get_data(gs,"singlets2")
