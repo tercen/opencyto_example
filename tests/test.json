@@ -1,13 +1,33 @@
 {
   "kind": "OperatorUnitTest",
   "name": "test",
-  "namespace": "ds0",
-  "inputDataUri": "groups_super_exp.csv",
-  "outputDataUri": ["table1.csv","table2.csv","table3.csv"],
-  "columns": ["Group"],
-  "rows": ["Variable"],
+  "namespace": "ds2",
+  "propertyValues": [
+    {
+    "kind": "PropertyValue",
+    "name": "FowardScatter",
+    "value": "FSC.A"
+    },
+    {
+    "kind": "PropertyValue",
+    "name": "SideScatter",
+    "value": "BSC.A"
+    },{
+    "kind": "PropertyValue",
+    "name": "FowardScatter biplot",
+    "value": "FSC.A,FSC.H"
+    },{
+    "kind": "PropertyValue",
+    "name": "SideScatter biplot",
+    "value": "BSC.A,FSC.A"
+    },
+  ], 
+  "inputDataUri": "exemple_FCS_long.csv",
+  "outputDataUri": ["table1.csv","table2.csv"],
+  "columns": ["TIME"],
+  "rows": ["CHANNEL"],
   "colors": [],
   "labels": [],
-  "yAxis": "Measurement",
+  "yAxis": "Value",
   "xAxis": ""
 }
