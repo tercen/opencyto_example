@@ -20,7 +20,7 @@
     "kind": "PropertyValue",
     "name": "SideScatter biplot",
     "value": "BSC.A,FSC.A"
-    },
+    }
   ], 
   "inputDataUri": "exemple_FCS_long.csv",
   "outputDataUri": ["table1.csv","table2.csv"],
