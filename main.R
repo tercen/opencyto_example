@@ -85,7 +85,7 @@ if (is.null(viable)){
 
 filter_data <- data[,".ci"]%in% exprs(data_get)[,".ci"]
 
-df <- data.frame(Openflag= ifelse(filter_data,"pass","fail"),.ci=  data[,".ci"])
+df <- data.frame(Openflag= ifelse(filter_data,"pass","fail"),.ci=  as.integer(data[,".ci"]))
 
 df %>%
   ctx$addNamespace() %>%
