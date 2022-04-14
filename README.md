@@ -1,36 +1,26 @@
+# OpenCyto operator
 
-# build
+##### Description
 
-```shell
-VERSION=0.14.0
-docker build -t tercen/simple_docker_operator:$VERSION .
-docker push tercen/simple_docker_operator:$VERSION
-# update operator.json file with correct docker image version
-{
-        echo '{'
-        echo '"name": "simple docker operator",'
-        echo '"description": "simple docker operator",'
-        echo '"tags": [""],'
-        echo '"authors": ["tercen"],'
-        echo '"urls": ["https://github.com/tercen/simple_docker_operator"],'
-        echo '"container":"tercen/simple_docker_operator:'$VERSION'",'  
-        echo '"properties": [ ]'
-        echo '}'
-} > operator.json
+The `OpenCyto operator` 
 
-git add -A && git commit -m "$VERSION" && git tag $VERSION && git push && git push --tags
+##### Usage
 
-```
+Input projection|.
+---|---
+`y-axis`        | numeric, measurement value 
+`row`           | factor, channel to be used for gating
+`column`        | factor, observation (rowID)
 
-# inspect
+Input parameters|.
+---|---
+`input_viable`        | parameter description of the channel used for the viability gate (select negative population)
 
-```shell
-docker run --rm --entrypoint=bash tercen/simple_docker_operator:$VERSION -c "R --version"
-docker run -it --rm --entrypoint=bash tercen/simple_docker_operator:$VERSION
-```
- 
-# push
+Output relations|.
+---|---
+`flag`        | pass / fail flag, per column
 
-```shell
-docker push tercen/simple_docker_operator:$VERSION
-```
+##### Details
+
+The operator is a wrapper of the `gs_add_gating_method()` function from the
+`OpenCyto` R/Bioconductor package.
